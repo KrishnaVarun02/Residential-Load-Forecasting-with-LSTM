@@ -1,0 +1,12 @@
+# Large local datasets and archives (not suitable for the Git repository)
+lstm_ai.zip
+LSTM/household_power_consumption.csv
+LSTM/household_power_consumption.txt
+LSTM/household_power_consumption_mod/household_power_consumption_mod.csv
+LSTM/household_power_consumption_mod.rar
+
+# macOS and Python-generated files
+.DS_Store
+**/.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
