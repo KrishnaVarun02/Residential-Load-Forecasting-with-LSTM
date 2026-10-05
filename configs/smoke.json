@@ -1,0 +1,27 @@
+{
+  "models": [
+    "lstm",
+    "gru",
+    "linear",
+    "ridge",
+    "lasso",
+    "polynomial",
+    "persistence",
+    "empirical_mean",
+    "empirical_mape"
+  ],
+  "lookback": 1,
+  "train_fraction": 0.7,
+  "validation_fraction": 0.15,
+  "epochs": 2,
+  "batch_size": 64,
+  "learning_rate": 0.001,
+  "patience": 5,
+  "seed": 7,
+  "threads": 1,
+  "ridge_alpha": 0.0001,
+  "lasso_alpha": 1.0,
+  "polynomial_degree": 2,
+  "feature_mode": "measured",
+  "target_unit": "sum of minute kW samples"
+}

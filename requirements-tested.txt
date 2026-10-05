@@ -1,0 +1,8 @@
+# Exact core/test versions used for the recorded CPU validation (Python 3.12.14/macOS).
+numpy==2.5.3
+pandas==2.3.3
+scikit-learn==1.9.1
+torch==2.14.1
+joblib==1.6.0
+pytest==8.4.2
+ruff==0.16.10

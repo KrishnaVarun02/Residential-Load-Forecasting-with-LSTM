@@ -1,0 +1,7 @@
+# Optional historical notebooks / separate 48-worksheet experiment.
+-r requirements.txt
+tensorflow>=2.16,<3
+openpyxl>=3.1,<4
+matplotlib>=3.8,<4
+seaborn>=0.13,<1
+jupyter>=1,<2
