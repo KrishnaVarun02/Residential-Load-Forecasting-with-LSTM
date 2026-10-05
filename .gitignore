@@ -10,3 +10,5 @@ LSTM/household_power_consumption_mod.rar
 **/.ipynb_checkpoints/
 __pycache__/
 *.py[cod]
+LSTM/FriRNN1_generated.xlsx
+forecast_metrics.json
