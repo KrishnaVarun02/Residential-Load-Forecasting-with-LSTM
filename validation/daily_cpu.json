@@ -1,0 +1,429 @@
+{
+  "recorded_date": "2026-10-05",
+  "runtime": "Python 3.12.14, macOS arm64, CPU, one torch thread",
+  "purpose": "New local implementation validation; not a reproduction of historical report scores",
+  "metadata": {
+    "format_version": 1,
+    "data_path": "LSTM/household_daily.csv",
+    "data_sha256": "de24f5fd06940c09d9bfb0e274f275ac7d8518c87595d913c840efe875ee0834",
+    "config": {
+      "models": [
+        "lstm",
+        "gru",
+        "linear",
+        "ridge",
+        "lasso",
+        "polynomial",
+        "persistence",
+        "empirical_mean",
+        "empirical_mape"
+      ],
+      "lookback": 1,
+      "train_fraction": 0.7,
+      "validation_fraction": 0.15,
+      "epochs": 10,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "patience": 5,
+      "seed": 7,
+      "threads": 1,
+      "ridge_alpha": 0.0001,
+      "lasso_alpha": 1.0,
+      "polynomial_degree": 2,
+      "feature_mode": "measured",
+      "target_unit": "sum of minute kW samples"
+    },
+    "preprocessor": {
+      "names": [
+        "Global_active_power",
+        "Global_reactive_power",
+        "Voltage",
+        "Global_intensity",
+        "Sub_metering_1",
+        "Sub_metering_2",
+        "Sub_metering_3"
+      ],
+      "fill": [
+        1524.204,
+        166.768,
+        346643.86,
+        6503.2,
+        1124.0,
+        791.0,
+        8812.0
+      ],
+      "minimum": [
+        250.298,
+        34.922,
+        93552.53,
+        1164.0,
+        0.0,
+        0.0,
+        1288.0
+      ],
+      "span": [
+        4523.088000000001,
+        382.91200000000003,
+        260745.99000000002,
+        19036.4,
+        11178.0,
+        12109.0,
+        18221.0
+      ],
+      "feature_mode": "measured",
+      "cadence": 86400000000000
+    },
+    "boundaries": [
+      1009,
+      1225
+    ],
+    "rows": 1442,
+    "target": "Global_active_power",
+    "target_unit": "sum of minute kW samples",
+    "protocol": "rolling observed-history one-step forecasts; chronological split by target time",
+    "versions": {
+      "torch": "2.14.1",
+      "numpy": "2.5.3",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "joblib": "1.6.0"
+    },
+    "splits": {
+      "train": {
+        "n": 1008,
+        "first_target": "2006-12-17 00:00:00",
+        "last_target": "2009-09-19 00:00:00"
+      },
+      "validation": {
+        "n": 216,
+        "first_target": "2009-09-20 00:00:00",
+        "last_target": "2010-04-23 00:00:00"
+      },
+      "test": {
+        "n": 217,
+        "first_target": "2010-04-24 00:00:00",
+        "last_target": "2010-11-26 00:00:00"
+      }
+    }
+  },
+  "metrics": {
+    "validation": {
+      "lstm": {
+        "n": 216,
+        "mse": 183110.9921757716,
+        "rmse": 427.9147019860051,
+        "mae": 329.5548305322671,
+        "mape_percent": 18.807830003845314,
+        "mape_n": 216,
+        "wape_percent": 18.313282134043376,
+        "r2": -0.032498098309816426,
+        "explained_variance": 0.026363405829047837
+      },
+      "gru": {
+        "n": 216,
+        "mse": 171116.40208689522,
+        "rmse": 413.662183534941,
+        "mae": 322.6747101717723,
+        "mape_percent": 19.45657550905603,
+        "mape_n": 216,
+        "wape_percent": 17.930955511567788,
+        "r2": 0.03513515139090395,
+        "explained_variance": 0.04126493437088219
+      },
+      "linear": {
+        "n": 216,
+        "mse": 151485.71943409217,
+        "rmse": 389.2116640519554,
+        "mae": 296.5527816350194,
+        "mape_percent": 17.3245254911229,
+        "mape_n": 216,
+        "wape_percent": 16.47936626796228,
+        "r2": 0.14582562533081045,
+        "explained_variance": 0.16948507784448874
+      },
+      "ridge": {
+        "n": 216,
+        "mse": 151553.9083363582,
+        "rmse": 389.2992529357823,
+        "mae": 296.60189510380553,
+        "mape_percent": 17.32370909203103,
+        "mape_n": 216,
+        "wape_percent": 16.482095491530355,
+        "r2": 0.1454411322368735,
+        "explained_variance": 0.16940742765405337
+      },
+      "lasso": {
+        "n": 216,
+        "mse": 234239.06567860176,
+        "rmse": 483.9825055501508,
+        "mae": 373.3527519253669,
+        "mape_percent": 20.30058586420242,
+        "mape_n": 216,
+        "wape_percent": 20.74712202059894,
+        "r2": -0.3207912151492629,
+        "explained_variance": 0.0
+      },
+      "polynomial": {
+        "n": 216,
+        "mse": 157970.46626764373,
+        "rmse": 397.454986467202,
+        "mae": 300.6827091259426,
+        "mape_percent": 17.3675771460033,
+        "mape_n": 216,
+        "wape_percent": 16.708865338609378,
+        "r2": 0.10926043230714166,
+        "explained_variance": 0.14843274404740936
+      },
+      "persistence": {
+        "n": 216,
+        "mse": 244989.420776281,
+        "rmse": 494.96406008545813,
+        "mae": 381.61564018696055,
+        "mape_percent": 22.331976846022368,
+        "mape_n": 216,
+        "wape_percent": 21.20628872051422,
+        "r2": -0.3814086639578753,
+        "explained_variance": -0.38129840008329285
+      },
+      "empirical_mean": {
+        "n": 216,
+        "mse": 229023.77966726094,
+        "rmse": 478.56429000423856,
+        "mae": 373.5335298996914,
+        "mape_percent": 20.511613608341538,
+        "mape_n": 216,
+        "wape_percent": 20.75716780885845,
+        "r2": -0.29138406255362703,
+        "explained_variance": 0.03227140419929675
+      },
+      "empirical_mape": {
+        "n": 216,
+        "mse": 510945.0853225739,
+        "rmse": 714.8042286686432,
+        "mae": 610.6020833333333,
+        "mape_percent": 31.57652352827537,
+        "mape_n": 216,
+        "wape_percent": 33.93100991922236,
+        "r2": -1.8810385584602138,
+        "explained_variance": 0.042861991543332034
+      }
+    },
+    "test": {
+      "lstm": {
+        "n": 217,
+        "mse": 135502.8609116945,
+        "rmse": 368.1071323836235,
+        "mae": 287.59336864476273,
+        "mape_percent": 26.746476759182247,
+        "mape_n": 217,
+        "wape_percent": 20.9840675670981,
+        "r2": 0.24997261114913683,
+        "explained_variance": 0.31772581223593876
+      },
+      "gru": {
+        "n": 217,
+        "mse": 268703.4690733578,
+        "rmse": 518.3661534797172,
+        "mae": 433.850909506176,
+        "mape_percent": 44.18876371786626,
+        "mape_n": 217,
+        "wape_percent": 31.65565618576494,
+        "r2": -0.4873114849995457,
+        "explained_variance": 0.14133313366832956
+      },
+      "linear": {
+        "n": 217,
+        "mse": 109202.82016105532,
+        "rmse": 330.4584999074094,
+        "mae": 252.5529366515254,
+        "mape_percent": 22.12356033826059,
+        "mape_n": 217,
+        "wape_percent": 18.427364691815068,
+        "r2": 0.39554703487830234,
+        "explained_variance": 0.40846203606819453
+      },
+      "ridge": {
+        "n": 217,
+        "mse": 109194.99807593261,
+        "rmse": 330.4466644950931,
+        "mae": 252.527229889161,
+        "mape_percent": 22.119621038689996,
+        "mape_n": 217,
+        "wape_percent": 18.425489014218858,
+        "r2": 0.3955903312193574,
+        "explained_variance": 0.4084510619863936
+      },
+      "lasso": {
+        "n": 217,
+        "mse": 216949.74070701638,
+        "rmse": 465.7786391699563,
+        "mae": 367.7646407911042,
+        "mape_percent": 37.80697009327835,
+        "mape_n": 217,
+        "wape_percent": 26.83371354324386,
+        "r2": -0.2008473211528481,
+        "explained_variance": 0.0
+      },
+      "polynomial": {
+        "n": 217,
+        "mse": 110217.81280681097,
+        "rmse": 331.9906818072022,
+        "mae": 252.1593722497967,
+        "mape_percent": 20.64824068882465,
+        "mape_n": 217,
+        "wape_percent": 18.39864851509376,
+        "r2": 0.3899289078610799,
+        "explained_variance": 0.40340082814901534
+      },
+      "persistence": {
+        "n": 217,
+        "mse": 144518.9226624873,
+        "rmse": 380.1564449834927,
+        "mae": 261.16435114176727,
+        "mape_percent": 18.623976850730482,
+        "mape_n": 217,
+        "wape_percent": 19.055691083216423,
+        "r2": 0.20006744156698186,
+        "explained_variance": 0.20007856123927026
+      },
+      "empirical_mean": {
+        "n": 217,
+        "mse": 220489.90310589035,
+        "rmse": 469.56352403683394,
+        "mae": 359.8218528545826,
+        "mape_percent": 37.319836046171936,
+        "mape_n": 217,
+        "wape_percent": 26.25417306386314,
+        "r2": -0.2204426178297636,
+        "explained_variance": -0.01959528107491404
+      },
+      "empirical_mape": {
+        "n": 217,
+        "mse": 200942.02072921657,
+        "rmse": 448.2655694219851,
+        "mae": 358.64145622119815,
+        "mape_percent": 29.736269475456968,
+        "mape_n": 217,
+        "wape_percent": 26.168046172872444,
+        "r2": -0.11224234015374357,
+        "explained_variance": 0.020149863845889016
+      }
+    }
+  },
+  "history": {
+    "lstm": {
+      "loss": "mse",
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.06211338045873812,
+          "validation_loss": 0.011537451077532937
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.020850538970932128,
+          "validation_loss": 0.0096706217561881
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.018084081155913218,
+          "validation_loss": 0.010850372898938594
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.01776541636458465,
+          "validation_loss": 0.00906476212466266
+        },
+        {
+          "epoch": 5,
+          "train_loss": 0.01666392448047797,
+          "validation_loss": 0.009301109853142905
+        },
+        {
+          "epoch": 6,
+          "train_loss": 0.015658812346084724,
+          "validation_loss": 0.009018092372355733
+        },
+        {
+          "epoch": 7,
+          "train_loss": 0.015165298304978817,
+          "validation_loss": 0.009022802829291616
+        },
+        {
+          "epoch": 8,
+          "train_loss": 0.01454898462970815,
+          "validation_loss": 0.008950439084179097
+        },
+        {
+          "epoch": 9,
+          "train_loss": 0.014031017797866039,
+          "validation_loss": 0.008952513931369461
+        },
+        {
+          "epoch": 10,
+          "train_loss": 0.013545792549848557,
+          "validation_loss": 0.00897268503588069
+        }
+      ],
+      "best_epoch": 8,
+      "parameter_count": 489001
+    },
+    "gru": {
+      "loss": "mae",
+      "epochs": [
+        {
+          "epoch": 1,
+          "train_loss": 0.20375098217101323,
+          "validation_loss": 0.14900587400865903
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.1140321594855142,
+          "validation_loss": 0.0713394720977731
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.10287561445009141,
+          "validation_loss": 0.08464650173045056
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.10326009279205686,
+          "validation_loss": 0.07965200800756041
+        },
+        {
+          "epoch": 5,
+          "train_loss": 0.1007128262094089,
+          "validation_loss": 0.07625897352253067
+        },
+        {
+          "epoch": 6,
+          "train_loss": 0.09884152301247158,
+          "validation_loss": 0.0766947573224601
+        },
+        {
+          "epoch": 7,
+          "train_loss": 0.09699038108662954,
+          "validation_loss": 0.07574855226601895
+        }
+      ],
+      "best_epoch": 2,
+      "parameter_count": 34141
+    }
+  },
+  "next_forecast": {
+    "datetime": "2010-11-27 00:00:00",
+    "target_unit": "sum of minute kW samples",
+    "predictions": {
+      "lstm": 1527.8805582823754,
+      "gru": 1663.9542791094782,
+      "linear": 1874.7116409063342,
+      "ridge": 1874.1888922195437,
+      "lasso": 1561.0205064902307,
+      "polynomial": 639.059107963562,
+      "persistence": 1488.1039394078257,
+      "empirical_mean": 1790.5154444444443,
+      "empirical_mape": 1314.906
+    }
+  }
+}

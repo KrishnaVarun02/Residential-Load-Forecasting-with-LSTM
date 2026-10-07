@@ -1,0 +1,17 @@
+name: tests
+on: [push, pull_request]
+jobs:
+  cpu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m ruff check .
+      - run: python -m pytest -q
+      - run: python -m load_forecasting train --data LSTM/household_daily.csv --config configs/smoke.json --output runs/ci
+      - run: python -m load_forecasting evaluate --run runs/ci
+      - run: python -m load_forecasting predict --run runs/ci --history LSTM/household_daily.csv
